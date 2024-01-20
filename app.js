@@ -44,10 +44,9 @@ app.use((req, res, next) => {
   next(new ErrorNotFound('Маршрут не найден'));
 });
 
-mongoose.connect('mongodb://localhost:27017//bitfilmsdb', {
+mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
+  useUnifiedTopology: true,
 });
 
 app.use(errors());
