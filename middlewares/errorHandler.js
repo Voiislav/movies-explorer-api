@@ -7,7 +7,7 @@ const {
   ERROR_CONFLICT,
 } = require('../utils/errorCodes');
 
-module.exports.errorHandler = (err, req, res, next) => {
+module.exports.errorHandler = (err, res, next) => {
   let statusCode;
   let message;
 
