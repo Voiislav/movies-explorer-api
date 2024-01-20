@@ -6,7 +6,7 @@ const ErrorUnauthorized = require('../errors/ErrorUnauthorized');
 
 const jwtSecret = process.env.JWT_SECRET || 'default_secret_key';
 
-module.exports = (req, next) => {
+module.exports = (req, res, next) => {
   const tokenFromCookie = req.cookies.jwt;
 
   if (!tokenFromCookie) {
