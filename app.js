@@ -6,7 +6,15 @@ const ErrorNotFound = require('./errors/ErrorNotFound');
 
 const auth = require('./middlewares/auth');
 
+const { createUser, login } = require('./controllers/users');
+
+const { signinSchema, signupSchema } = require('./middlewares/validation');
+
 const app = express();
+
+app.post('/signin', signinSchema, login);
+
+app.post('/signup', signupSchema, createUser);
 
 app.use(auth);
 
