@@ -1,5 +1,9 @@
 const express = require('express');
 
+const cookieParser = require('cookie-parser');
+
+const bodyParser = require('body-parser');
+
 const { errors } = require('celebrate');
 
 const mongoose = require('mongoose');
@@ -15,6 +19,12 @@ const { signinSchema, signupSchema } = require('./middlewares/validation');
 const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 app.post('/signin', signinSchema, login);
 
