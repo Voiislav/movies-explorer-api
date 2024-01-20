@@ -67,7 +67,7 @@ module.exports.deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== userId) {
         return next(new ErrorForbidden('Недостаточно прав для удаления фильма из коллекции'));
       }
-      return Movie.deleteOne(movie);
+      return Movie.deleteOne({ _id: movieId });
     })
     .then(() => {
       res.json({ message: 'Фильм удален из коллекции' });
