@@ -14,6 +14,8 @@ const ErrorNotFound = require('./errors/ErrorNotFound');
 
 const auth = require('./middlewares/auth');
 
+const limiter = require('./utils/rateLimiter');
+
 const { createUser, login, logout } = require('./controllers/users');
 
 const { signinSchema, signupSchema } = require('./middlewares/validation');
@@ -23,6 +25,8 @@ const { errorHandler } = require('./middlewares/errorHandler');
 const app = express();
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
+app.use(limiter);
 
 app.use(helmet());
 
