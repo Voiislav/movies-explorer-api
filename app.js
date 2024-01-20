@@ -1,5 +1,7 @@
 const express = require('express');
 
+const { errors } = require('celebrate');
+
 const mongoose = require('mongoose');
 
 const ErrorNotFound = require('./errors/ErrorNotFound');
@@ -9,6 +11,8 @@ const auth = require('./middlewares/auth');
 const { createUser, login, logout } = require('./controllers/users');
 
 const { signinSchema, signupSchema } = require('./middlewares/validation');
+
+const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -33,6 +37,10 @@ mongoose.connect('mongodb://localhost:27017//bitfilmsdb', {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(errors());
+
+app.use(errorHandler);
 
 const { PORT = 3000 } = process.env;
 
