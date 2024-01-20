@@ -8,8 +8,6 @@ const { errors } = require('celebrate');
 
 const mongoose = require('mongoose');
 
-const cors = require('cors');
-
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
 const auth = require('./middlewares/auth');
