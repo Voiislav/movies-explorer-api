@@ -78,3 +78,25 @@ module.exports.updateProfile = (req, res, next) => {
       return next(new ErrorServer('Ошибка сервера'));
     });
 };
+
+module.exports.login = (req, res, next) => {
+  const { email, password } = req.body;
+  let foundUser;
+  User.findOne({ email }).select('+password')
+    .then((user) => {
+      if (!user) {
+        return next(new ErrorUnauthorized('Неправильные почта или пароль'));
+      }
+      foundUser = user;
+      return bcrypt.compare(password, user.password);
+    })
+    .then((matched) => {
+      if (!matched) {
+        return next(new ErrorUnauthorized('Неправильные почта или пароль'));
+      }
+      const token = jwt.sign({ _id: foundUser._id }, jwtSecret, { expiresIn: '7d' });
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+      return res.json({ message: 'Авторизация прошла успешно', token });
+    })
+    .catch(next);
+};
