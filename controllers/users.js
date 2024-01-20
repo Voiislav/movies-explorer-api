@@ -100,3 +100,12 @@ module.exports.login = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.logout = (req, res, next) => {
+  try {
+    res.clearCookie('jwt');
+    res.json({ message: 'Вы успешно вышли из аккаунта' });
+  } catch (err) {
+    next(err);
+  }
+};
