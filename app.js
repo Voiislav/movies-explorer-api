@@ -22,11 +22,15 @@ const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+app.use(requestLogger);
 
 app.post('/signin', signinSchema, login);
 
@@ -48,6 +52,8 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
