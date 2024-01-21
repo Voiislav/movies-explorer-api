@@ -34,13 +34,13 @@ app.post('/signin', signinSchema, login);
 
 app.post('/signup', signupSchema, createUser);
 
-app.post('/signout', logout);
-
 app.use(auth);
 
 app.use('/users', require('./routes/users'));
 
 app.use('/movies', require('./routes/movies'));
+
+app.post('/signout', logout);
 
 app.use((req, res, next) => {
   next(new ErrorNotFound('Маршрут не найден'));
