@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser');
 
 const bodyParser = require('body-parser');
 
-const helmet = require('helmet');
-
 const { errors } = require('celebrate');
 
 const mongoose = require('mongoose');
@@ -23,8 +21,6 @@ const { errorHandler } = require('./middlewares/errorHandler');
 const app = express();
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-app.use(helmet());
 
 app.use(bodyParser.json());
 
