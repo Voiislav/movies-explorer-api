@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const { errors } = require('celebrate');
 
+const cors = require('cors');
+
 const mongoose = require('mongoose');
 
 const ErrorNotFound = require('./errors/ErrorNotFound');
@@ -19,6 +21,18 @@ const { signinSchema, signupSchema } = require('./middlewares/validation');
 const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
+
+const allowedOrigins = ['https://moomovies.nomoredomainswork.ru', 'https://api.moomovies.nomoredomainsmonster.ru'];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+  exposedHeaders: 'Authorization',
+};
+
+app.use(cors(corsOptions));
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
