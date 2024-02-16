@@ -22,7 +22,7 @@ const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
-const allowedOrigins = ['https://moomovies.nomoredomainswork.ru', 'https://api.moomovies.nomoredomainsmonster.ru'];
+const allowedOrigins = ['https://moomovies.nomoredomainswork.ru', 'https://api.moomovies.nomoredomainsmonster.ru', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: allowedOrigins,
