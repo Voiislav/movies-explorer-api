@@ -27,6 +27,7 @@ app.use(function(req, res, next) {
 
   if (allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
   }
 
   const { method } = req;
