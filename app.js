@@ -22,16 +22,17 @@ const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
-const corsSettings = {
-  origin: [
-    'https://moomovies.nomoredomainswork.ru',
-    'https://api.moomovies.nomoredomainsmonster.ru',
-    'http://localhost:3000',
-  ],
+const allowedOrigins = ['https://moomovies.nomoredomainswork.ru', 'https://api.moomovies.nomoredomainsmonster.ru', 'http://localhost:3000'];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+  exposedHeaders: 'Authorization',
 };
 
-app.options('*', cors(corsSettings));
-app.use(cors(corsSettings));
+app.use(cors(corsOptions));
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
