@@ -23,5 +23,11 @@ module.exports = (req, res, next) => {
 
   req.user = payload;
 
+  res.cookie('jwt', tokenFromCookie, {
+    httpOnly: true,
+    sameSite: 'none',
+  });
+
+
   return next();
 };
