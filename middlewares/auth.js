@@ -26,6 +26,7 @@ module.exports = (req, res, next) => {
   res.cookie('jwt', tokenFromCookie, {
     httpOnly: true,
     sameSite: 'none',
+    secure: true,
   });
 
 
