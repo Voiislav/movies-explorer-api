@@ -1,7 +1,5 @@
 const express = require('express');
 
-const cookieParser = require('cookie-parser');
-
 const bodyParser = require('body-parser');
 
 const { errors } = require('celebrate');
@@ -48,8 +46,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(cookieParser());
 
 app.use(requestLogger);
 

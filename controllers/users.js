@@ -1,25 +1,17 @@
-const bcrypt = require('bcrypt');
-
 const jwt = require('jsonwebtoken');
-
-const User = require('../models/user');
-
 require('dotenv').config();
-
-const jwtSecret = process.env.JWT_SECRET || 'default_secret_key';
-
+const bcrypt = require('bcrypt');
+const User = require('../models/user');
 const ErrorNotFound = require('../errors/ErrorNotFound');
 const ErrorServer = require('../errors/ErrorServer');
 const ErrorBadRequest = require('../errors/ErrorBadRequest');
 const ErrorConflict = require('../errors/ErrorConflict');
 const ErrorUnauthorized = require('../errors/ErrorUnauthorized');
 
+const jwtSecret = process.env.JWT_SECRET || 'default_secret_key';
+
 module.exports.createUser = (req, res, next) => {
-  const {
-    email,
-    password,
-    name,
-  } = req.body;
+  const { email, password, name } = req.body;
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       email,
@@ -46,7 +38,6 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   const userId = req.user._id;
-
   User.findById(userId)
     .then((user) => {
       if (!user) {
@@ -95,7 +86,6 @@ module.exports.login = (req, res, next) => {
         return next(new ErrorUnauthorized('Неверные почта или пароль'));
       }
       const token = jwt.sign({ _id: foundUser._id }, jwtSecret, { expiresIn: '7d' });
-      res.cookie('jwt', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: 'None', secure: true });
       return res.json({ message: 'Авторизация прошла успешно', token });
     })
     .catch(next);
@@ -103,7 +93,6 @@ module.exports.login = (req, res, next) => {
 
 module.exports.logout = (req, res, next) => {
   try {
-    res.clearCookie('jwt');
     res.json({ message: 'Вы успешно вышли из аккаунта' });
   } catch (err) {
     next(err);
