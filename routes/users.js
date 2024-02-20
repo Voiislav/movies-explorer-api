@@ -4,9 +4,9 @@ const router = express.Router();
 
 const { getCurrentUser, updateProfile } = require('../controllers/users');
 
-const { getCurrentUserSchema, updateProfileSchema } = require('../middlewares/validation');
+const { updateProfileSchema } = require('../middlewares/validation');
 
-router.get('/me', getCurrentUserSchema, getCurrentUser);
+router.get('/me', getCurrentUser);
 router.patch('/me', updateProfileSchema, updateProfile);
 
 module.exports = router;
